@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gobierno Estudiantil - Lista 3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-main: #0d1117;
+            --bg-hero: #0a0e14;
+            --bg-section: #0b0f17;
+            --bg-card: #161b22;
+            --bg-input: #0d1117;
+            --text-main: #ffffff;
+            --text-muted: #8b949e;
+            --text-card: #c9d1d9;
+            --grid-color: rgba(0, 255, 255, 0.03);
+            --border-card: #30363d;
+            --shadow-modal: rgba(0, 255, 255, 0.6);
+        }
+
+        [data-theme="light"] {
+            --bg-main: #f4f6f9;
+            --bg-hero: #ffffff;
+            --bg-section: #f0f2f5;
+            --bg-card: #ffffff;
+            --bg-input: #f4f6f9;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --text-card: #4b5563;
+            --grid-color: rgba(0, 240, 240, 0.05);
+            --border-card: #e5e7eb;
+            --shadow-modal: rgba(0, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            scroll-behavior: smooth;
+        }
+
+        .hero-section {
+            background-color: var(--bg-hero);
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .top-icons {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .icon-btn {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: var(--bg-card);
+        }
+        .icon-btn i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .icon-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-colegio { border: 2px solid #ffcc00; color: #ffcc00; box-shadow: 0 0 10px rgba(255, 204, 0, 0.2); fill: #ffcc00; }
+        .btn-presi { border: 2px solid #ff007f; color: #ff007f; box-shadow: 0 0 10px rgba(255, 0, 127, 0.2); }
+
+        .logo-grande-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .logo-grande {
+            max-width: 250px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.4));
+        }
+
+        .sub-title {
+            color: #00ffff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .main-title span {
+            color: #00ffff;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+        }
+        .description {
+            max-width: 600px;
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .btn-view {
+            background: transparent;
+            border: 2px solid #ff007f;
+            color: var(--text-main);
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+        .btn-view:hover {
+            background: #ff007f;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.8);
+        }
+
+        .proposals-section {
+            background-color: var(--bg-section);
+            padding: 60px 20px;
+        }
+        .section-heading {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #00ffff;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .proposals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .theme-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .theme-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ffff;
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.15);
+        }
+        
+        .card-image-box {
+            width: 100%;
+            height: 190px;
+            overflow: hidden;
+            background: #ffffff;
+            position: relative;
+        }
+        .proposal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+        .theme-card:hover .proposal-img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 22px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .theme-card h3 {
+            color: #ff007f;
+            font-size: 1.25rem;
+            text-shadow: 0 0 5px rgba(255, 0, 127, 0.1);
+            line-height: 1.3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .theme-card h3::after {
+            content: '\f107';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: #00ffff;
+            transition: transform 0.3s ease;
+        }
+        .theme-card.active h3::after {
+            transform: rotate(180deg);
+        }
+
+        .card-description-wrapper {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+        .theme-card.active .card-description-wrapper {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-card);
+        }
+
+        .theme-card p {
+            color: var(--text-card);
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .mailbox-form {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+        .mailbox-textarea {
+            width: 100%;
+            height: 80px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-card);
+            border-radius: 8px;
+            color: var(--text-main);
+            padding: 10px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: none;
+            transition: border-color 0.3s;
+        }
+        .mailbox-textarea:focus {
+            outline: none;
+            border-color: #00ffff;
+        }
+        .mailbox-submit {
+            background: #ff007f;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .mailbox-submit:hover {
+            background: #e0006c;
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+        }
+
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            max-width: 85%;
+            max-height: 80vh;
+            border-radius: 12px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 30px var(--shadow-modal);
+            transform: scale(0.7);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #00ffff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .social-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+        .theme-float {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            z-index: 1000;
+        }
+        .float-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 22px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: transform 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .float-btn:hover { transform: scale(1.1); }
+        .float-ws { background-color: #25D366; }
+        .float-ig { background-color: #E1306C; }
+        .float-theme { background-color: #4f46e5; color: #ffcc00; }
+    </style>
+</head>
+<body>
+
+    <section class="hero-section">
+        <div class="top-icons">
+            <div class="icon-btn btn-colegio" onclick="openPhoto('colegio.png')">
+                <svg viewBox="0 0 200 200" width="42" height="42" style="margin-bottom: 4px;">
+                    <circle cx="100" cy="100" r="94" fill="none" stroke="#ffcc00" stroke-width="6"/>
+                    <circle cx="100" cy="100" r="88" fill="#ffffff"/>
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="#0f2042" stroke-width="2"/>
+                    <path d="M100 50 C95 45, 90 50, 95 55 C98 58, 100 62, 100 62 C100 62, 102 58, 105 55 C110 50, 105 45, 100 50 Z" fill="#c92a2a"/>
+                    <path d="M62 120 Q50 90, 65 65" fill="none" stroke="#2b6125" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M62 110 Q50 105, 54 100 Q60 102, 61 108" fill="#3b7a34"/>
+                    <path d="M59 95 Q46 92, 51 86 Q57 88, 59 93" fill="#3b7a34"/>
+                    <path d="M138 120 Q150 90, 135 65" fill="none" stroke="#2b6125" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M138 110 Q150 105, 146 100 Q140 102, 139 108" fill="#3b7a34"/>
+                    <path d="M141 95 Q154 92, 149 86 Q143 88, 141 93" fill="#3b7a34"/>
+                    <path d="M62 120 Q100 150, 138 120" fill="none" stroke="#2b6125" stroke-width="3"/>
+                    <g fill="#0f2042">
+                        <path d="M78 72 L122 72 L122 78 L78 78 Z"/>
+                        <path d="M96 75 L104 75 L104 125 C104 135, 88 140, 82 130 C80 126, 84 122, 87 124 C90 126, 96 126, 96 120 Z"/>
+                        <path d="M88 88 C72 90, 68 112, 84 120 C90 123, 94 118, 92 114 C82 112, 78 100, 86 94 C88 92, 90 92, 90 88" />
+                        <path d="M102 122 L112 85 L124 122 L117 122 L115 112 L109 112 L107 122 Z M110 107 L114 107 L112 95 Z"/>
+                    </g>
+                </svg>
+                <span>COLEGIO</span>
+            </div>
+
+            <div class="icon-btn btn-presi" onclick="openPhoto('presi.jpeg')">
+                <i class="fas fa-user-tie"></i>
+                <span>PRESI</span>
+            </div>
+        </div>
+
+        <div class="logo-grande-container">
+            <img src="logo.png" alt="Logo Lista 3" class="logo-grande">
+        </div>
+
+        <p class="sub-title">Gobierno Estudiantil</p>
+        <h1 class="main-title">LISTA <span>3</span></h1>
+        <p class="description">
+            Un equipo comprometido en escuchar tus ideas y convertirlas en realidades. 
+            Tu voz es nuestra propuesta más importante.
+        </p>
+
+        <button class="btn-view" onclick="document.getElementById('propuestas-zona').scrollIntoView({behavior: 'smooth'})">
+            Ver Propuestas
+        </button>
+    </section>
+
+    <section class="proposals-section" id="propuestas-zona">
+        <h2 class="section-heading">Nuestras Propuestas</h2>
+        
+        <div class="proposals-grid">
+
+            <!-- Propuesta 1 -->
+            <div class="theme-card" onclick="toggleCard(this, event)">
+                <div class="card-image-box">
+                    <img src="propuesta1.jpeg" alt="Piso Seguro y Activo" class="proposal-img">
+                </div>
+                <div class="card-content">
+                    <h3>1. Proyecto "Piso Seguro y Activo"</h3>
+                    <div class="card-description-wrapper">
+                        <p>Mejoramiento y mantenimiento del piso del colegio para evitar accidentes y tener espacios más cómodos para todos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Propuesta 2 -->
+            <div class="theme-card" onclick="toggleCard(this, event)">
+                <div class="card-image-box">
+                    <img src="propuesta2.jpeg" alt="Espacios Deportivos" class="proposal-img">
+                </div>
+                <div class="card-content">
+                    <h3>2. Optimización de Espacios Deportivos</h3>
+                    <div class="card-description-wrapper">
+                        <p>Instalación de una nueva red de vóley y reparación de los aros de básquet para aprovechar mejor las canchas en los recreos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Propuesta 3 -->
+            <div class="theme-card" onclick="toggleCard(this, event)">
+                <div class="card-image-box">
+                    <img src="propuesta3.jpeg" alt="Bienestar e Infraestructura" class="proposal-img">
+                </div>
+                <div class="card-content">
+                    <h3>3. Bienestar e Infraestructura Sanitaria</h3>
+                    <div class="card-description-wrapper">
+                        <p>Pintado de los baños del colegio e instalación de un espejo grande y cómodo en el baño de mujeres.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Propuesta 4 -->
+            <div class="theme-card" onclick="toggleCard(this, event)">
+                <div class="card-image-box">
+                    <img src="propuesta4.jpeg" alt="Torneos Relámpago" class="proposal-img">
+                </div>
+                <div class="card-content">
+                    <h3>4. Integration Escolar (Torneos Relámpago)</h3>
+                    <div class="card-description-wrapper">
+                        <p>Organización de torneos rápidos de fútbol o básquet durante los recreos o las últimas horas de los viernes para divertirnos y unirnos más.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Propuesta 5 -->
+            <div class="theme-card" onclick="toggleCard(this, event)">
+                <div class="card-image-box">
+                    <img src="propuesta5.jpeg" alt="Campaña Ecológica" class="proposal-img">
+                </div>
+                <div class="card-content">
+                    <h3>5. Campaña Ecológica: Reciclaje Activo</h3>
+                    <div class="card-description-wrapper">
+                        <p>Incentivaremos el reciclaje en las aulas. El curso que más material logre recolectar al mes se ganará un premio especial.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Propuesta 6 -->
+            <div class="theme-card" onclick="toggleCard(this, event)">
+                <div class="card-image-box">
+                    <img src="propuesta6.jpeg" alt="Voz Estudiantil" class="proposal-img">
+                </div>
+                <div class="card-content">
+                    <h3>6. Voz Estudiantil Activa (Buzón Digital)</h3>
+                    <div class="card-description-wrapper">
+                        <p>Escribe aquí abajo cualquier idea, queja o propuesta que tengas. ¡Nosotros la revisaremos en privado y te responderemos!</p>
+                        
+                        <form class="mailbox-form" action="https://docs.google.com/forms/d/e/1FAIpQLSf2HMD6bTjy58I-fvhcIak4pVqs6UkRfKzSSjDUZ5kMAllMDw/formResponse" method="POST" target="_blank">
+                            <textarea class="mailbox-textarea" name="entry.556205799" placeholder="Escribe tu sugerencia o mensaje aquí..." required></textarea>
+                            <button type="submit" class="mailbox-submit">Enviar al equipo</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Propuesta 7 -->
+            <div class="theme-card" onclick="toggleCard(this, event)">
+                <div class="card-image-box">
+                    <img src="propuesta7.jpeg" alt="Mantenimiento Infantil" class="proposal-img">
+                </div>
+                <div class="card-content">
+                    <h3>7. Mantenimiento y Cuidado Infantil</h3>
+                    <div class="card-description-wrapper">
+                        <p>Pintar, arreglar y restaurar los columpios y los juegos recreativos de los niños más pequeños del colegio.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="photoModal" class="modal" onclick="closePhoto()">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="modalImg" alt="Vista ampliada">
+    </div>
+
+    <div class="social-float">
+        <a href="https://wa.me/" target="_blank" class="float-btn float-ws"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com/" target="_blank" class="float-btn float-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+
+    <div class="theme-float">
+        <button class="float-btn float-theme" id="theme-switcher" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
+    </div>
+
+    <script>
+        function toggleCard(card, event) {
+            if (event.target.closest('form') || event.target.closest('.mailbox-form')) {
+                return; 
+            }
+            card.classList.toggle('active');
+        }
+
+        function openPhoto(imageSrc) {
+            const modal = document.getElementById('photoModal');
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = imageSrc;
+            modal.classList.add('show');
+        }
+
+        function closePhoto() {
+            const modal = document.getElementById('photoModal');
+            modal.classList.remove('show');
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.getElementById('theme-switcher').querySelector('i');
+            
+            if (body.getAttribute('data-theme') === 'light') {
+                body.removeAttribute('data-theme');
+                themeBtn.className = 'fas fa-sun';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeBtn.className = 'fas fa-moon';
+            }
+        }
+    </script>
+
+</body>
+</html>
